@@ -83,5 +83,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 
-Brian Wisti (brianwisti@rubyforge.org)
-Greg Millam (walker@rubyforge.org)
+Brian Wisti (brian.wisti at gmail)
+Greg Millam (walker at rubyforge)
