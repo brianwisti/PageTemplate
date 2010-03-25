@@ -1,0 +1,123 @@
+2.2.4:
+    Housecleaning:
+        - Removed site files from project group in repository
+2.2.3:
+    Bugfixes
+        - NameSpace#set accepted symbols, but Namespace#get would lose them.
+          Now symbol keys are fetched based on symbol.to_s
+        - Undefined iterators were triggering warnings with the -w flag
+2.2.0:
+    Bugfixes:
+        FileSource#get_filename couldn't consistently work with
+        relative or absolute filenames on Windows.
+            Report by: Robert Hicks
+    Changes:
+        Added DefineCommand class allowing users to set values from 
+            inside a template. This is experimental and aesthetiscally
+            unpleasant. I may do away with it entirely if I get in a
+            mood.
+        Added '[%define var value%]' syntax to DefaultGlossary
+        Parser.initialize can now accept a Hash as the 'namespace' arg
+        Added FilterCommand for preprocessing raw text blocks in the 
+            template.
+        FilterCommand#output will have its contained commands parsed.
+2.1.7:
+    Changes:
+        Added PageTemplate::VERSION constant
+        "gem" target in Rakefile uses PageTemplate::VERSION when building gems
+        Added Namespace#delete
+2.1.6:
+    Oops. Forgot to put in changes.
+2.1.5:
+    Oops. Forgot to put in changes.
+2.1.4:
+    Oops. Forgot to put in changes.
+2.1.3:
+    Bugfixes:
+      HTGlossary didn't survive the change from 2.0 to 2.1. I've
+          added unit tests and fixed the HTGlossary bugs. Whoops.
+      setup.rb attempted to chmod every directory in its path on install.
+          Report and fix by: Lars Olsson
+    Changes:
+      __INDEX__ added to LoopCommand objects. It's 0-based, but if a
+          designer wants 1-based, then can do:
+          [% var __INDEX__.succ %]
+      If a glossary directive has multiple captures, PT will use
+          the first non-nil one.
+      Namespaces now use parser.method_separators. Defined on creation
+          by PageTemplate.new('method_separators' => './').
+          Inspired by Jeremy Apthorp and YAML paths.
+
+2.1.2:
+    Bugfixes:
+      Added File.chmod statements to setup.rb to fix rake install.
+
+2.1.1:
+    Bugfixes:
+      'else' no longer crashes with CaseCommand. Patch by Jeremy Apthorp
+      Wrong regexp for modifier in parser.rb fixed. Report by anonymous.
+      modifiers are correctly reset when coming out of StackableCommands.
+         (report by Jeremy Apthorp)
+    Parser:
+      Added: Caching capability. If a Source returns a Command, it is used
+             instead of trying to compile it. After every compile,
+             Source#cache(filename,cmds) is called.
+             FileSource has caching, now.
+
+2.1
+    Commands:
+      Changed: IfCommand now accepts elseif, elsif, else if.
+      Changed: LoopCommand accepts multiple iterators.
+      Changed: Commands don't accept 'commandname arguments' syntax
+      Changed: Commands take arguments they want: called_as, value, iterators
+      Changed: Commands no longer recieve parsers on initialize
+      Changed: Commands can access parser via namespace.parser
+      Removed: modifies? and closes?
+      Added: @modifier = sym, @closer = sym. These are syms for the
+             SyntaxGlossary's lookups for else, when, end, etc.
+    Parser:
+      Added: NamespaceItem module
+      Changed: Namespace is now just an includer of NamespaceItem
+      Changed: Parser and Templare are now both NamespaceItems
+      Changed: Namespace#get returns an error message instead of erroring.
+      Changed: obj.accessor now also has obj.arrayindex and obj.hashkey
+      Changed: SyntaxGlossary is now a singleton, and is more flexible.
+      Added: htglossary.rb, providing an HTML::Template HTGlossary
+      Fixed: Parser#load() accepts full path names now
+2.0
+    Major changes:
+      Entire code refactored and rewritten.
+      Parser now iterative
+    Commands:
+      Changed: Everything is encapsulated in the PageTemplate class
+      Changed: If, IfElse, Unless, UnlessElse commands merged
+      Changed: Loop, LoopElse merged
+      Changed: else/end logic placed into Commands
+      Fixed: Loop MetaVariables
+      Added: ValueCommand supports 'preprocessors'. var variable :processor
+      Added: 'case' command added: optional in PageTemplate/case.rb
+    Namespace:
+      Fixed: false or nil variables previously caused PT to search up.
+      Added: ability to have 'var.name.name2' variable access.
+    Parser:
+      Changed: Syntax::Glossary became SyntaxGlossary
+      Changed: Syntax::Parser became just Parser
+      Changed: Parser is now primarily a compiler instead of a template object.
+      Changed: else/end logic placed into Commands instead of parser.
+      Changed: Iterative process should be faster
+      Removed: Use of a disk cache when 'use_cache' is true
+      Added:   Ability to compile files without setting PageTemplate's current
+               @commands to the result.
+1.2
+    - Added: UnlessCommand (including '[%unless foo %]' syntax)
+    - Added: Loop Metavariables __FIRST__, __LAST__, and __ODD__
+    - Added: CommentCommand (including '[%-- blah --%]' syntax)
+    - Added: IncludeCommands allow multiple include paths
+    - Changed: VariableCommands access via 'obj.respond_to?' rather than 'obj.class.has_method?'
+    - Fixed: Unhandled SecurityError when 'include' is called in a mod_ruby environment
+    - Fixed: MANIFEST file being installed to rubylib directory
+    - Fixed: Returns a failure string when include fails, rather than raising an exception.
+1.1
+    - Added: IncludeCommand
+1.0
+    - Moved to Rubyforge
