@@ -13,9 +13,10 @@ As a side note: if you are using PageTemplate in your projects, or
 add features to your copy, I'd love to hear about it.  If you feel like
 it.
 
-Brian Wisti (brianwisti@rubyforge.org)
-Greg Millam (walker@rubyforge.org)
-http://pagetemplate.org/
+Brian Wisti (brian.wisti at gmail)
+Greg Millam (walker at rubyforge)
+
+http://coolnamehere.com/products/pagetemplate
 
 == Features
 
